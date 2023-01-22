@@ -73,17 +73,21 @@ saveCoverButton.addEventListener("click", function() {
 
 function saveCurrentCover() {
   // add code here
+  savedCovers.push(currentCover);
 }
 
 function renderSavedCovers() {
+  console.log('savedCovers', savedCovers);
   // add code here (some starter code provided below)
-  
-  // savedCoversContainer.innerHTML += 
-  //   `<section class="mini-cover" id="${Date.now()}">
-      // <img class="cover-image" src=${/* cover */}>
-      // <h2 class="cover-title">${/* title */}</h2>
-      // <h3 class="tagline">A tale of <span class="tagline-1">${/* tagline1 */}</span> and <span class="tagline-2">${/* tagline2 */}</span></h3>
-  //   </section>`
+  savedCoversContainer.innerHTML = '';
+  for (let i=0; i<savedCovers.length; i++) {
+    savedCoversContainer.innerHTML += 
+    `<section class="mini-cover">
+      <img class="cover-image" src=${savedCovers[i].cover} id="${savedCovers[i].id}">
+      <h2 class="cover-title">${savedCovers[i].title}</h2>
+      <h3 class="tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
+    </section>`
+  }
 }
 
 // PART 2 STOPS HERE!
@@ -103,10 +107,17 @@ function renderSavedCovers() {
 savedCoversContainer.addEventListener("dblclick", function(event) {
   deleteSavedCover(event.target.id);
   // what else should we invoke here to update the DOM?
+  renderSavedCovers();
 });
 
 function deleteSavedCover(id) {
+  
   // add code here to update the Data Model
+  for (let i=0; i<savedCovers.length; i++) {
+    if (savedCovers[i].id.toString() === id) {
+      savedCovers.splice(i, 1);
+    }
+  }
 }
 
 // PART 3 STOPS HERE!
